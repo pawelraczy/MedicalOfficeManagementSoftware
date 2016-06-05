@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -14,9 +15,13 @@ import java.net.URL;
 
 
 public class MenuAndMainView extends JFrame {
-    private PanelAddPatientView panelAddPatientView;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private PanelAddPatientView panelAddPatientView;
     private PanelPatientsListView panelPatientsListView;
-    private PanelAddEmployeeView panelAddEmployeeView;
+    private PanelAddEmployeeView<?, ?, ?> panelAddEmployeeView;
     private PanelEmployeeListView panelEmployeeList;
     private PanelBlacklistView panelBlacklistView;
     private PanelPatientsScheduleView panelPatientsScheduleView;
@@ -42,7 +47,7 @@ public class MenuAndMainView extends JFrame {
         //Initiate panels
         panelAddPatientView = new PanelAddPatientView();
         panelPatientsListView = new PanelPatientsListView();
-        panelAddEmployeeView = new PanelAddEmployeeView();
+        panelAddEmployeeView = new PanelAddEmployeeView<Object, Object, Object>();
         panelEmployeeList = new PanelEmployeeListView();
         panelBlacklistView = new PanelBlacklistView();
         panelPatientsScheduleView = new PanelPatientsScheduleView();
@@ -258,7 +263,7 @@ public class MenuAndMainView extends JFrame {
         return panelBlacklistView;
     }
 
-    public PanelAddEmployeeView getPanelAddEmployeeView() {
+    public PanelAddEmployeeView<?, ?, ?> getPanelAddEmployeeView() {
         return panelAddEmployeeView;
     }
 

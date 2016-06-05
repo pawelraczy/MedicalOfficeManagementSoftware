@@ -2,11 +2,15 @@ package view;
 
 import helper.DateLabelFormatter;
 import helper.GBC;
+
+import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import org.jdatepicker.JDatePicker;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -14,327 +18,362 @@ import java.util.Date;
 import java.util.Properties;
 
 /**
- * This is a view for view.PanelAddPatientView (main view: "view.MenuAndMainView" must initiate it)
+ * This is a view for view.PanelAddPatientView (main view:
+ * "view.MenuAndMainView" must initiate it)
  */
 
 public class PanelAddPatientView extends JPanel {
-    private JButton clearFields;
-    private JButton confirm;
-    private JButton cancel;
-    private JTextField firstNameField;
-    private JTextField lastNameField;
-    private JComboBox<String> genderBox;
-    private JDatePickerImpl dateOfBirthPicker;
-    private JTextField cityField;
-    private JTextField postCodeField1;
-    private JTextField postCodeField2;
-    private JTextField streetField;
-    private JTextField apartmentNumberField;
-    private JTextField phoneNumberField1;
-    private JTextField phoneNumberField2;
-    private JTextField eMailField;
-    private JTextField personalIdentityNumberField;
-    private JTextArea allergiesArea;
-    private JTextArea medicalHistoryArea;
-    private UtilDateModel dateModel;
-    private int idNumber = 0;
+	private JButton clearFields;
+	private JButton confirm;
+	private JButton cancel;
+	private JTextField firstNameField;
+	private JTextField lastNameField;
+	private JComboBox<String> genderBox;
+	private JDatePicker dateOfBirthPicker;
+	private JTextField cityField;
+	private JTextField postCodeField1;
+	private JTextField postCodeField2;
+	private JTextField streetField;
+	private JTextField apartmentNumberField;
+	private JTextField phoneNumberField1;
+	private JTextField phoneNumberField2;
+	private JTextField eMailField;
+	private JTextField personalIdentityNumberField;
+	private JTextArea allergiesArea;
+	private JTextArea medicalHistoryArea;
+	private UtilDateModel dateModel;
+	private int idNumber = 0;
 
-    public PanelAddPatientView() {
-        //JPanel settings
-        setBorder(BorderFactory.createTitledBorder("Add a new patient"));
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        setLayout(gridBagLayout);
+	public PanelAddPatientView() {
+		// JPanel settings
+		setBorder(BorderFactory.createTitledBorder("Add a new patient"));
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		setLayout(gridBagLayout);
 
-        //JLabels (titles)
-        JLabel firstNameLabel = new JLabel("First name:");
-        JLabel lastNameLabel = new JLabel("Last name:");
-        JLabel genderLabel = new JLabel("Gender:");
-        JLabel dateOfBirthLabel = new JLabel("Date of birth:");
-        JLabel cityLabel = new JLabel("City:");
-        JLabel postCodeLabel = new JLabel("Post code [xx-xxx]:");
-        JLabel streetLabel = new JLabel("Street:");
-        JLabel houseApartmentNumberLabel = new JLabel("Apartment number:");
-        JLabel phoneNumberLabel = new JLabel("Phone number:");
-        JLabel eMailLabel = new JLabel("E-mail:");
-        JLabel personalIdentityNumberLabel = new JLabel("Personal identity number:");
-        JLabel allergiesLabel = new JLabel("Allergies:");
-        JLabel medicalHistoryLabel = new JLabel("Medical history:");
+		// JLabels (titles)
+		JLabel firstNameLabel = new JLabel("First name:");
+		JLabel lastNameLabel = new JLabel("Last name:");
+		JLabel genderLabel = new JLabel("Gender:");
+		JLabel dateOfBirthLabel = new JLabel("Date of birth:");
+		JLabel cityLabel = new JLabel("City:");
+		JLabel postCodeLabel = new JLabel("Post code [xx-xxx]:");
+		JLabel streetLabel = new JLabel("Street:");
+		JLabel houseApartmentNumberLabel = new JLabel("Apartment number:");
+		JLabel phoneNumberLabel = new JLabel("Phone number:");
+		JLabel eMailLabel = new JLabel("E-mail:");
+		JLabel personalIdentityNumberLabel = new JLabel(
+				"Personal identity number:");
+		JLabel allergiesLabel = new JLabel("Allergies:");
+		JLabel medicalHistoryLabel = new JLabel("Medical history:");
 
-        //Fields for user (select or fill up)
-        firstNameField = new JTextField();
-        firstNameField.setPreferredSize(new Dimension(100, 20));
-        lastNameField = new JTextField();
-        lastNameField.setPreferredSize(new Dimension(100, 20));
+		// Fields for user (select or fill up)
+		firstNameField = new JTextField();
+		firstNameField.setPreferredSize(new Dimension(100, 20));
+		lastNameField = new JTextField();
+		lastNameField.setPreferredSize(new Dimension(100, 20));
 
-        String[] genderSettings = {"Male", "Female"};
-        genderBox = new JComboBox<String>(genderSettings);
-        genderBox.setBackground(Color.WHITE);
-        genderBox.setSelectedItem(null);
+		String[] genderSettings = { "Male", "Female" };
+		genderBox = new JComboBox<String>(genderSettings);
+		genderBox.setBackground(Color.WHITE);
+		genderBox.setSelectedItem(null);
 
-        dateModel = new UtilDateModel();
-        dateModel.setDate(1980, 0, 1);
-        Properties p = new Properties();
-        p.put("text.today", "Today");
-        p.put("text.month", "Month");
-        p.put("text.year", "Year");
-        JDatePanelImpl datePanel = new JDatePanelImpl(dateModel, p);
-        dateOfBirthPicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		UtilDateModel dateModel = new UtilDateModel();
+		dateModel.setDate(1980, 0, 1);
+		Properties p = new Properties();
+		p.put("text.today", "Today");
+		p.put("text.month", "Month");
+		p.put("text.year", "Year");
+		JDatePanelImpl datePanel = new JDatePanelImpl(dateModel, p);
+		dateOfBirthPicker = new JDatePickerImpl(datePanel,
+				new DateLabelFormatter());
 
-        cityField = new JTextField();
+		cityField = new JTextField();
 
-        JPanel postCodePanel = new JPanel();
-        postCodeField1 = new JTextField();
-        postCodeField1.setPreferredSize(new Dimension(22, 20));
-        postCodeField2 = new JTextField();
-        postCodeField2.setPreferredSize(new Dimension(30, 20));
-        postCodePanel.add(postCodeField1);
-        postCodePanel.add(new JLabel("-"));
-        postCodePanel.add(postCodeField2);
+		JPanel postCodePanel = new JPanel();
+		postCodeField1 = new JTextField();
+		postCodeField1.setPreferredSize(new Dimension(22, 20));
+		postCodeField2 = new JTextField();
+		postCodeField2.setPreferredSize(new Dimension(30, 20));
+		postCodePanel.add(postCodeField1);
+		postCodePanel.add(new JLabel("-"));
+		postCodePanel.add(postCodeField2);
 
-        streetField = new JTextField();
-        apartmentNumberField = new JTextField();
-        apartmentNumberField.setPreferredSize(new Dimension(100, 20));
+		streetField = new JTextField();
+		apartmentNumberField = new JTextField();
+		apartmentNumberField.setPreferredSize(new Dimension(100, 20));
 
-        JPanel phoneNumberPanel = new JPanel();
-        phoneNumberField1 = new JTextField();
-        phoneNumberField1.setPreferredSize(new Dimension(24, 20));
-        phoneNumberField2 = new JTextField();
-        phoneNumberField2.setPreferredSize(new Dimension(72, 20));
-        phoneNumberPanel.add(new JLabel("+("));
-        phoneNumberPanel.add(phoneNumberField1);
-        phoneNumberPanel.add(new JLabel(")"));
-        phoneNumberPanel.add(phoneNumberField2);
+		JPanel phoneNumberPanel = new JPanel();
+		phoneNumberField1 = new JTextField();
+		phoneNumberField1.setPreferredSize(new Dimension(24, 20));
+		phoneNumberField2 = new JTextField();
+		phoneNumberField2.setPreferredSize(new Dimension(72, 20));
+		phoneNumberPanel.add(new JLabel("+("));
+		phoneNumberPanel.add(phoneNumberField1);
+		phoneNumberPanel.add(new JLabel(")"));
+		phoneNumberPanel.add(phoneNumberField2);
 
-        eMailField = new JTextField();
+		eMailField = new JTextField();
 
-        personalIdentityNumberField = new JTextField();
-        personalIdentityNumberField.setPreferredSize(new Dimension(100, 20));
+		personalIdentityNumberField = new JTextField();
+		personalIdentityNumberField.setPreferredSize(new Dimension(100, 20));
 
-        allergiesArea = new JTextArea(10, 1);
-        allergiesArea.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        allergiesArea.setLineWrap(true);
-        JScrollPane allergiesPane = new JScrollPane(allergiesArea);
+		allergiesArea = new JTextArea(10, 1);
+		allergiesArea.setBorder(BorderFactory
+				.createLineBorder(Color.LIGHT_GRAY));
+		allergiesArea.setLineWrap(true);
+		JScrollPane allergiesPane = new JScrollPane(allergiesArea);
 
-        medicalHistoryArea = new JTextArea(10, 1);
-        medicalHistoryArea.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        medicalHistoryArea.setLineWrap(true);
-        JScrollPane medicalHistoryPane = new JScrollPane(medicalHistoryArea);
+		medicalHistoryArea = new JTextArea(10, 1);
+		medicalHistoryArea.setBorder(BorderFactory
+				.createLineBorder(Color.LIGHT_GRAY));
+		medicalHistoryArea.setLineWrap(true);
+		JScrollPane medicalHistoryPane = new JScrollPane(medicalHistoryArea);
 
-        //Buttons on left JPanel
-        clearFields = new JButton("Clear fields");
-        confirm = new JButton("Confirm");
-        cancel = new JButton("Cancel");
+		// Buttons on left JPanel
+		clearFields = new JButton("Clear fields");
+		confirm = new JButton("Confirm");
+		cancel = new JButton("Cancel");
 
-        //Adding components to JPanel on the left side
-        GridLayout leftPanelLayout = new GridLayout(4, 1);
-        leftPanelLayout.setVgap(5);
-        JPanel leftPanel = new JPanel(leftPanelLayout);
-        leftPanel.add(clearFields);
-        leftPanel.add(new JLabel());
-        leftPanel.add(confirm);
-        leftPanel.add(cancel);
+		// Adding components to JPanel on the left side
+		GridLayout leftPanelLayout = new GridLayout(4, 1);
+		leftPanelLayout.setVgap(5);
+		JPanel leftPanel = new JPanel(leftPanelLayout);
+		leftPanel.add(clearFields);
+		leftPanel.add(new JLabel());
+		leftPanel.add(confirm);
+		leftPanel.add(cancel);
 
-        //Adding components to JPanel on the right side
-        JPanel rightPanel = new JPanel(gridBagLayout);
-        //row 1
-        rightPanel.add(firstNameLabel, new GBC(0, 0, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(firstNameField, new GBC(0, 1, 1, 1).setWeight(100, 0).setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
-        rightPanel.add(lastNameLabel, new GBC(1, 0, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(lastNameField, new GBC(1, 1, 1, 1).setWeight(100, 0).setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
-        rightPanel.add(genderLabel, new GBC(2, 0, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(genderBox, new GBC(2, 1, 1, 1).setWeight(0, 0).setInsets(1, 1, 20, 50).setAnchor(GBC.WEST));
-        rightPanel.add(dateOfBirthLabel, new GBC(3, 0, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(dateOfBirthPicker, new GBC(3, 1, 1, 1).setWeight(100, 0).setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
-        //row 2
-        rightPanel.add(cityLabel, new GBC(0, 2, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(cityField, new GBC(0, 3, 1, 1).setWeight(100, 0).setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
-        rightPanel.add(postCodeLabel, new GBC(1, 2, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(postCodePanel, new GBC(1, 3, 1, 1).setInsets(1, 1, 20, 50).setWeight(100, 0).setAnchor(GBC.WEST));
-        rightPanel.add(streetLabel, new GBC(2, 2, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(streetField, new GBC(2, 3, 1, 1).setWeight(100, 0).setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
-        rightPanel.add(houseApartmentNumberLabel, new GBC(3, 2, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(apartmentNumberField, new GBC(3, 3, 1, 1).setInsets(1, 1, 20, 50).setWeight(100, 0).setFill(GBC.HORIZONTAL));
-        //row 3
-        rightPanel.add(phoneNumberLabel, new GBC(0, 4, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(phoneNumberPanel, new GBC(0, 5, 1, 1).setWeight(100, 0).setInsets(1, 1, 20, 50).setAnchor(GBC.WEST));
-        rightPanel.add(eMailLabel, new GBC(1, 4, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(eMailField, new GBC(1, 5, 1, 1).setWeight(100, 0).setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
-        rightPanel.add(personalIdentityNumberLabel, new GBC(2, 4, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(personalIdentityNumberField, new GBC(2, 5, 1, 1).setInsets(1, 1, 20, 50).setAnchor(GBC.WEST));
-        //row 4
-        rightPanel.add(allergiesLabel, new GBC(0, 6, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(allergiesPane, new GBC(0, 7, 2, 1).setWeight(100, 100).setFill(GBC.BOTH).setInsets(1, 1, 20, 50));
-        rightPanel.add(medicalHistoryLabel, new GBC(2, 6, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
-        rightPanel.add(medicalHistoryPane, new GBC(2, 7, 2, 1).setWeight(100, 100).setFill(GBC.BOTH).setInsets(1, 1, 20, 50));
+		// Adding components to JPanel on the right side
+		JPanel rightPanel = new JPanel(gridBagLayout);
+		// row 1
+		rightPanel.add(firstNameLabel,
+				new GBC(0, 0, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
+		rightPanel.add(firstNameField, new GBC(0, 1, 1, 1).setWeight(100, 0)
+				.setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
+		rightPanel.add(lastNameLabel, new GBC(1, 0, 1, 1)
+				.setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
+		rightPanel.add(lastNameField, new GBC(1, 1, 1, 1).setWeight(100, 0)
+				.setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
+		rightPanel.add(genderLabel, new GBC(2, 0, 1, 1).setInsets(1, 1, 1, 10)
+				.setAnchor(GBC.WEST));
+		rightPanel.add(genderBox, new GBC(2, 1, 1, 1).setWeight(0, 0)
+				.setInsets(1, 1, 20, 50).setAnchor(GBC.WEST));
+		rightPanel.add(dateOfBirthLabel,
+				new GBC(3, 0, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
+		rightPanel.add((Component) dateOfBirthPicker, new GBC(3, 1, 1, 1).setWeight(100, 0)
+				.setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
+		// row 2
+		rightPanel.add(cityLabel, new GBC(0, 2, 1, 1).setInsets(1, 1, 1, 10)
+				.setAnchor(GBC.WEST));
+		rightPanel.add(cityField, new GBC(0, 3, 1, 1).setWeight(100, 0)
+				.setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
+		rightPanel.add(postCodeLabel, new GBC(1, 2, 1, 1)
+				.setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
+		rightPanel.add(postCodePanel,
+				new GBC(1, 3, 1, 1).setInsets(1, 1, 20, 50).setWeight(100, 0)
+						.setAnchor(GBC.WEST));
+		rightPanel.add(streetLabel, new GBC(2, 2, 1, 1).setInsets(1, 1, 1, 10)
+				.setAnchor(GBC.WEST));
+		rightPanel.add(streetField, new GBC(2, 3, 1, 1).setWeight(100, 0)
+				.setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
+		rightPanel.add(houseApartmentNumberLabel, new GBC(3, 2, 1, 1)
+				.setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
+		rightPanel.add(apartmentNumberField,
+				new GBC(3, 3, 1, 1).setInsets(1, 1, 20, 50).setWeight(100, 0)
+						.setFill(GBC.HORIZONTAL));
+		// row 3
+		rightPanel.add(phoneNumberLabel,
+				new GBC(0, 4, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
+		rightPanel.add(phoneNumberPanel, new GBC(0, 5, 1, 1).setWeight(100, 0)
+				.setInsets(1, 1, 20, 50).setAnchor(GBC.WEST));
+		rightPanel.add(eMailLabel, new GBC(1, 4, 1, 1).setInsets(1, 1, 1, 10)
+				.setAnchor(GBC.WEST));
+		rightPanel.add(eMailField, new GBC(1, 5, 1, 1).setWeight(100, 0)
+				.setFill(GBC.HORIZONTAL).setInsets(1, 1, 20, 50));
+		rightPanel.add(personalIdentityNumberLabel, new GBC(2, 4, 1, 1)
+				.setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
+		rightPanel.add(personalIdentityNumberField, new GBC(2, 5, 1, 1)
+				.setInsets(1, 1, 20, 50).setAnchor(GBC.WEST));
+		// row 4
+		rightPanel.add(allergiesLabel,
+				new GBC(0, 6, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
+		rightPanel.add(allergiesPane, new GBC(0, 7, 2, 1).setWeight(100, 100)
+				.setFill(GBC.BOTH).setInsets(1, 1, 20, 50));
+		rightPanel.add(medicalHistoryLabel,
+				new GBC(2, 6, 1, 1).setInsets(1, 1, 1, 10).setAnchor(GBC.WEST));
+		rightPanel.add(medicalHistoryPane,
+				new GBC(2, 7, 2, 1).setWeight(100, 100).setFill(GBC.BOTH)
+						.setInsets(1, 1, 20, 50));
 
-        //Adding components to main JPanel
-        add(leftPanel, new GBC(0, 0, 1, 1).setInsets(1).setFill(GBC.HORIZONTAL).setInsets(1, 1, 1, 15));
-        add(rightPanel, new GBC(1, 0, 1, 2).setWeight(100, 100).setInsets(1).setFill(GBC.HORIZONTAL).setAnchor(GBC.NORTH));
-    }
+		// Adding components to main JPanel
+		add(leftPanel, new GBC(0, 0, 1, 1).setInsets(1).setFill(GBC.HORIZONTAL)
+				.setInsets(1, 1, 1, 15));
+		add(rightPanel, new GBC(1, 0, 1, 2).setWeight(100, 100).setInsets(1)
+				.setFill(GBC.HORIZONTAL).setAnchor(GBC.NORTH));
+	}
 
+	// AddActionListener methods
+	public void addActionListenerToConfirmButton(ActionListener listener) {
+		confirm.addActionListener(listener);
+	}
 
-    //AddActionListener methods
-    public void addActionListenerToConfirmButton(ActionListener listener) {
-        confirm.addActionListener(listener);
-    }
+	public void addActionListenerToCancelButton(ActionListener listener) {
+		cancel.addActionListener(listener);
+	}
 
-    public void addActionListenerToCancelButton(ActionListener listener) {
-        cancel.addActionListener(listener);
-    }
+	public void addActionListenerToClearButton(ActionListener listener) {
+		clearFields.addActionListener(listener);
+	}
 
-    public void addActionListenerToClearButton(ActionListener listener) {
-        clearFields.addActionListener(listener);
-    }
+	// Getters
+	public String getFirstName() {
+		return firstNameField.getText();
+	}
 
+	public String getLastName() {
+		return lastNameField.getText();
+	}
 
-    //Getters
-    public String getFirstName() {
-        return firstNameField.getText();
-    }
+	public String getGender() {
+		return (String) genderBox.getSelectedItem();
+	}
 
-    public String getLastName() {
-        return lastNameField.getText();
-    }
+	public Calendar getDateOfBirth() {
+		Calendar cal = null;
+		if (dateOfBirthPicker.getModel().getValue() != null) {
+			cal = Calendar.getInstance();
+			cal.setTime((Date) dateOfBirthPicker.getModel().getValue());
+		}
+		return cal;
+	}
 
-    public String getGender() {
-        return (String) genderBox.getSelectedItem();
-    }
+	public String getCity() {
+		return cityField.getText();
+	}
 
-    public Calendar getDateOfBirth() {
-        Calendar cal = null;
-        if (dateOfBirthPicker.getModel().getValue() != null) {
-            cal = Calendar.getInstance();
-            cal.setTime((Date) dateOfBirthPicker.getModel().getValue());
-        }
-        return cal;
-    }
+	public String getPostCode1() {
+		return postCodeField1.getText();
+	}
 
-    public String getCity() {
-        return cityField.getText();
-    }
+	public String getPostCode2() {
+		return postCodeField2.getText();
+	}
 
-    public String getPostCode1() {
-        return postCodeField1.getText();
-    }
+	public String getStreet() {
+		return streetField.getText();
+	}
 
-    public String getPostCode2() {
-        return postCodeField2.getText();
-    }
+	public String getApartmentNumber() {
+		return apartmentNumberField.getText();
+	}
 
-    public String getStreet() {
-        return streetField.getText();
-    }
+	public String getPhoneNumber1() {
+		return phoneNumberField1.getText();
+	}
 
-    public String getApartmentNumber() {
-        return apartmentNumberField.getText();
-    }
+	public String getPhoneNumber2() {
+		return phoneNumberField2.getText();
+	}
 
-    public String getPhoneNumber1() {
-        return phoneNumberField1.getText();
-    }
+	public String getEMail() {
+		return eMailField.getText();
+	}
 
-    public String getPhoneNumber2() {
-        return phoneNumberField2.getText();
-    }
+	public String getPersonalIdentityNumber() {
+		return personalIdentityNumberField.getText();
+	}
 
-    public String getEMail() {
-        return eMailField.getText();
-    }
+	public String getAllergies() {
+		return allergiesArea.getText();
+	}
 
-    public String getPersonalIdentityNumber() {
-        return personalIdentityNumberField.getText();
-    }
+	public String getMedicalHistoryArea() {
+		return medicalHistoryArea.getText();
+	}
 
-    public String getAllergies() {
-        return allergiesArea.getText();
-    }
+	public int getIdNumber() {
+		return idNumber;
+	}
 
-    public String getMedicalHistoryArea() {
-        return medicalHistoryArea.getText();
-    }
+	// Setters
+	public void setFirstName(String firstName) {
+		firstNameField.setText(firstName);
+	}
 
-    public int getIdNumber() {
-        return idNumber;
-    }
+	public void setLastName(String lastName) {
+		lastNameField.setText(lastName);
+	}
 
-    //Setters
-    public void setFirstName(String firstName) {
-        firstNameField.setText(firstName);
-    }
+	public void setGender(String gender) {
+		genderBox.setSelectedItem(gender);
+	}
 
-    public void setLastName(String lastName) {
-        lastNameField.setText(lastName);
-    }
+	public void setDateOfBirth(int year, int month, int day) {
+		dateModel.setDate(year, month, day);
+	}
 
-    public void setGender(String gender) {
-        genderBox.setSelectedItem(gender);
-    }
+	public void setCity(String city) {
+		cityField.setText(city);
+	}
 
-    public void setDateOfBirth(int year, int month, int day) {
-        dateModel.setDate(year, month, day);
-    }
+	public void setPostCode1(String postCode1) {
+		postCodeField1.setText(postCode1);
+	}
 
-    public void setCity(String city) {
-        cityField.setText(city);
-    }
+	public void setPostCode2(String postCode2) {
+		postCodeField2.setText(postCode2);
+	}
 
-    public void setPostCode1(String postCode1) {
-        postCodeField1.setText(postCode1);
-    }
+	public void setStreet(String street) {
+		streetField.setText(street);
+	}
 
-    public void setPostCode2(String postCode2) {
-        postCodeField2.setText(postCode2);
-    }
+	public void setApartmentNumber(String apartmentNumber) {
+		apartmentNumberField.setText(apartmentNumber);
+	}
 
-    public void setStreet(String street) {
-        streetField.setText(street);
-    }
+	public void setPhoneNumber1(String phoneNumber1) {
+		phoneNumberField1.setText(phoneNumber1);
+	}
 
-    public void setApartmentNumber(String apartmentNumber) {
-        apartmentNumberField.setText(apartmentNumber);
-    }
+	public void setPhoneNumber2(String phoneNumber2) {
+		phoneNumberField2.setText(phoneNumber2);
+	}
 
-    public void setPhoneNumber1(String phoneNumber1) {
-        phoneNumberField1.setText(phoneNumber1);
-    }
+	public void setEMail(String eMail) {
+		eMailField.setText(eMail);
+	}
 
-    public void setPhoneNumber2(String phoneNumber2) {
-        phoneNumberField2.setText(phoneNumber2);
-    }
+	public void setPersonalIdentityNumber(String personalIdentityNumber) {
+		personalIdentityNumberField.setText(personalIdentityNumber);
+	}
 
-    public void setEMail(String eMail) {
-        eMailField.setText(eMail);
-    }
+	public void setAllergies(String allergies) {
+		allergiesArea.setText(allergies);
+	}
 
-    public void setPersonalIdentityNumber(String personalIdentityNumber) {
-        personalIdentityNumberField.setText(personalIdentityNumber);
-    }
+	public void setMedicalHistoryArea(String medicalHistory) {
+		medicalHistoryArea.setText(medicalHistory);
+	}
 
-    public void setAllergies(String allergies) {
-        allergiesArea.setText(allergies);
-    }
+	public void setDateModelSelected(boolean value) {
+		dateModel.setSelected(value);
+	}
 
-    public void setMedicalHistoryArea(String medicalHistory) {
-        medicalHistoryArea.setText(medicalHistory);
-    }
+	public void setIdNumber(int id) {
+		idNumber = id;
+	}
 
-    public void setDateModelSelected(boolean value) {
-        dateModel.setSelected(value);
-    }
-
-    public void setIdNumber(int id) {
-        idNumber = id;
-    }
-
-    /**
-     * Turn on/off Clear fields button
-     *
-     * @param value true (button enabled) or false (button disabled)
-     */
-    public void setClearFieldsButtonVisibility(boolean value) {
-        if (value == false)
-            clearFields.setEnabled(false);
-        else
-            clearFields.setEnabled(true);
-    }
+	/**
+	 * Turn on/off Clear fields button
+	 *
+	 * @param value
+	 *            true (button enabled) or false (button disabled)
+	 */
+	public void setClearFieldsButtonVisibility(boolean value) {
+		if (value == false)
+			clearFields.setEnabled(false);
+		else
+			clearFields.setEnabled(true);
+	}
 }

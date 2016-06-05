@@ -80,13 +80,12 @@ public class MenuController {
             }
         });
 
-        //Loading controlles for specific panels (views)
-        PanelAddPatientController PanelAddPatientController = new PanelAddPatientController(this.theView, this.theModel);
-        PanelPatientsListController PanelPatientsListController = new PanelPatientsListController(this.theView, this.theModel);
-        PanelBlacklistController PanelBlacklistController = new PanelBlacklistController(this.theView, this.theModel);
-        PanelAddEmployeeController PanelAddEmployeeController = new PanelAddEmployeeController(this.theView, this.theModel);
-        PanelEmployeeListController PanelEmployeeListController = new PanelEmployeeListController(this.theView, this.theModel);
-        PanelPatientsScheduleController PanelPatientsScheduleController = new PanelPatientsScheduleController(this.theView, this.theModel);
+        new PanelAddPatientController(this.theView, this.theModel);
+        new PanelPatientsListController(this.theView, this.theModel);
+        new PanelBlacklistController(this.theView, this.theModel);
+        new PanelAddEmployeeController(this.theView, this.theModel);
+        new PanelEmployeeListController(this.theView, this.theModel);
+        new PanelPatientsScheduleController(this.theView, this.theModel);
     }
 
     class AddPatientListener implements ActionListener {
