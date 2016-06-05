@@ -4,11 +4,13 @@ import domain.Appointment;
 import domain.Patient;
 import domain.VisitReport;
 import model.MainModel;
-import org.apache.commons.lang3.StringUtils;
 import view.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import org.apache.commons.lang.StringUtils;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.Format;

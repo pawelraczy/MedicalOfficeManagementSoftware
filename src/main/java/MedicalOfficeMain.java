@@ -4,6 +4,8 @@ import view.MenuAndMainView;
 
 import java.awt.*;
 
+import javax.swing.JFrame;
+
 /**
  * Small Medical Office Management software
  *
@@ -20,6 +22,7 @@ public class MedicalOfficeMain {
                 MainModel theModel = new MainModel();
                 MenuController theController = new MenuController(theView, theModel);
                 theView.setVisible(true);
+                theView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });
     }
